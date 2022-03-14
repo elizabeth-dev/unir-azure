@@ -1,0 +1,7 @@
+# no_subtree_check enabled to prevent problems
+
+{% for node in nodes %}
+# {{node.name}}
+/srv/nfs	{{node.ip}}(rw,sync,no_subtree_check)
+
+{% endfor %}

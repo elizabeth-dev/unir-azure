@@ -1,0 +1,9 @@
+---
+
+- name: Install NFS packages (Debian-based)
+  ansible.builtin.apt:
+    update_cache: yes
+    pkg:
+    - nfs-kernel-server
+  become: yes
+  when: ansible_os_family == 'Debian'

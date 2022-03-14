@@ -1,0 +1,7 @@
+---
+
+nodes:
+  - name: master
+    ip: 10.0.1.10
+  - name: worker
+    ip: 10.0.1.11

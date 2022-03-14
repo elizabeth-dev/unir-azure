@@ -1,0 +1,9 @@
+---
+
+- name: Enable NFS systemd service
+  ansible.builtin.systemd:
+    name: nfs-kernel-server.service
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+  become: yes

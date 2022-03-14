@@ -1,0 +1,31 @@
+- name: Copy Nginx volume config
+  ansible.builtin.template:
+    src: nginx_volume.yaml.j2
+    dest: /tmp/nginx_volume.yaml
+    owner: azadmin
+    group: azadmin
+    mode: '0644'
+
+- name: Copy Nginx Deployment config
+  ansible.builtin.copy:
+    src: nginx_deployment.yaml
+    dest: /tmp/nginx_deployment.yaml
+    owner: azadmin
+    group: azadmin
+    mode: '0644'
+
+- name: Copy Nginx Ingress config
+  ansible.builtin.copy:
+    src: nginx_ingress.yaml
+    dest: /tmp/nginx_ingress.yaml
+    owner: azadmin
+    group: azadmin
+    mode: '0644'
+
+- name: Copy Nginx ConfigMap config
+  ansible.builtin.copy:
+    src: nginx_configmap.yaml
+    dest: /tmp/nginx_configmap.yaml
+    owner: azadmin
+    group: azadmin
+    mode: '0644'

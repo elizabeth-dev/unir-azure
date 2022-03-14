@@ -1,0 +1,11 @@
+---
+
+- name: Download Calico chart
+  ansible.builtin.get_url:
+    url: https://docs.projectcalico.org/manifests/canal.yaml
+    dest: /tmp/calico_canal.yaml
+    mode: '0664'
+
+- name: Apply Calico chart
+  kubernetes.core.k8s:
+    src: /tmp/calico_canal.yaml

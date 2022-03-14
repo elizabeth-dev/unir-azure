@@ -1,0 +1,8 @@
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[master_nodes]
+master ansible_connection=local
+
+[worker_nodes]
+worker ansible_user=azadmin

@@ -1,0 +1,5 @@
+---
+
+- include_tasks: 01-kubeadm.yaml
+- include_tasks: 02-sdn.yaml
+- include_tasks: 03-ingress.yaml

@@ -1,0 +1,25 @@
+---
+
+- name: Prepare common k8s tasks
+  hosts: all
+  vars_files:
+    - "group_vars/k8s.yaml"
+  gather_facts: true
+  roles:
+    - k8s_common
+
+- name: Deploy k8s master
+  hosts: master_nodes
+  vars_files:
+    - "group_vars/k8s.yaml"
+  gather_facts: true
+  roles:
+    - k8s_master
+
+- name: Deploy k8s workers
+  hosts: worker_nodes
+  vars_files:
+    - "group_vars/k8s.yaml"
+  gather_facts: true
+  roles:
+    - k8s_worker

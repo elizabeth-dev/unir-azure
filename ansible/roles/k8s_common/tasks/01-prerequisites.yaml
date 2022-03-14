@@ -1,0 +1,30 @@
+---
+
+- name: Copy needed kernel modules
+  ansible.builtin.copy:
+    src: k8s-cluster.modules.conf
+    dest: /etc/modules-load.d/k8s-cluster.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: reload kernel modules
+  ansible.builtin.systemd:
+    name: systemd-modules-load.service
+    daemon_reload: yes
+    state: restarted
+  become: yes
+
+- name: Copy needed sysctl networking settings
+  ansible.builtin.copy:
+    src: k8s-cluster.sysctl.conf
+    dest: /etc/sysctl.d/k8s-cluster.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Reload sysctl configuration
+  ansible.builtin.command: sysctl --system
+  become: yes

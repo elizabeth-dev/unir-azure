@@ -1,0 +1,35 @@
+---
+
+- name: Download HAProxy ingress chart
+  ansible.builtin.user:
+    name: kubeadmin
+    password: "T3stP4ssw0rd!"
+  become: yes
+
+- name: Create k8s home directory
+  ansible.builtin.file:
+    path: /home/kubeadmin/.kube
+    state: directory
+    mode: '0755'
+    owner: azadmin
+    group: azadmin
+  become: yes
+
+- name: Copy k8s admin config
+  ansible.builtin.copy:
+    remote_src: yes
+    src: /etc/kubernetes/admin.conf
+    dest: /home/kubeadmin/.kube/config
+    owner: kubeadmin
+    group: kubeadmin
+    mode: '0600'
+  become: yes
+
+- name: Enable sudo for kubeadmin user
+  ansible.builtin.copy:
+    src: k8s-cluster.modules.conf
+    dest: /etc/sudoers.d/kubeadmin
+    owner: root
+    group: root
+    mode: '0600'
+  become: yes

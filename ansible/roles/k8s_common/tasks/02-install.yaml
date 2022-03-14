@@ -1,0 +1,81 @@
+---
+
+- name: Trust k8s repo keys (Debian)
+  ansible.builtin.apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Trust libcontainers repo keys (Debian)
+  ansible.builtin.apt_key:
+    url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key
+    state: present
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Trust CRI-O repo keys (Debian-based)
+  ansible.builtin.apt_key:
+    url: https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:1.23/xUbuntu_20.04/Release.key
+    state: present
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Add k8s repo (Ubuntu 20)
+  ansible.builtin.apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Add libcontainers repo (Ubuntu 20)
+  ansible.builtin.apt_repository:
+    repo: deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /
+    state: present
+  become: yes
+  when: ansible_facts['distribution'] == 'Ubuntu' and ansible_facts['distribution_major_version'] == "20"
+
+- name: Add CRI-O repo (Ubuntu 20)
+  ansible.builtin.apt_repository:
+    repo: deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.23/xUbuntu_20.04/ /
+    state: present
+  become: yes
+  when: ansible_facts['distribution'] == 'Ubuntu' and ansible_facts['distribution_major_version'] == "20"
+
+- name: Update APT cache (Debian-based)
+  ansible.builtin.apt:
+    update_cache: yes
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install CRI-O packages (Debian-based)
+  ansible.builtin.apt:
+    pkg:
+    - cri-o
+    - cri-o-runc
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install k8s packages (Debian-based)
+  ansible.builtin.apt:
+    pkg:
+    - kubeadm=1.23.4-00
+    - kubelet=1.23.4-00
+    - kubectl
+    - kubernetes-cni
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Hold kubeadm version (Debian-based)
+  ansible.builtin.dpkg_selections:
+    name: kubeadm
+    selection: hold
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Hold kubelet version (Debian-based)
+  ansible.builtin.dpkg_selections:
+    name: kubelet
+    selection: hold
+  become: yes
+  when: ansible_os_family == 'Debian'

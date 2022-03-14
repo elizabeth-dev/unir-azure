@@ -1,0 +1,12 @@
+---
+
+- name: Download HAProxy ingress chart
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/haproxytech/kubernetes-ingress/master/deploy/haproxy-ingress.yaml
+    dest: /tmp/haproxy_ingress.yaml
+    mode: '0664'
+
+- name: Apply HAProxy ingress chart
+  kubernetes.core.k8s:
+    kubeconfig: /home/azadmin/.kube/config
+    src: /tmp/haproxy_ingress.yaml

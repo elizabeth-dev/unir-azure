@@ -1,0 +1,7 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: JoinConfiguration
+discovery:
+  bootstrapToken:
+    token: "{{ hostvars['master']['fact_kubeadm_token'] }}"
+    apiServerEndpoint: "{{ master_ip }}:6443"
+    unsafeSkipCAVerification: true

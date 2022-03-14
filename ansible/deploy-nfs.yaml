@@ -1,0 +1,9 @@
+---
+
+- name: Deploy NFS
+  hosts: master_nodes
+  vars_files:
+    - "group_vars/nfs.yaml"
+  gather_facts: true
+  roles:
+    - nfs_server

@@ -1,0 +1,24 @@
+---
+
+- name: Create k8s namespace
+  kubernetes.core.k8s:
+    name: nginx
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Deploy NFS PersistentVolume and PersistentVolumeClaim
+  kubernetes.core.k8s:
+    src: /tmp/nginx_volume.yaml
+
+- name: Deploy Nginx Pod
+  kubernetes.core.k8s:
+    src: /tmp/nginx_deployment.yaml
+
+- name: Deploy Nginx Ingress
+  kubernetes.core.k8s:
+    src: /tmp/nginx_ingress.yaml
+
+- name: Deploy Nginx Configmap
+  kubernetes.core.k8s:
+    src: /tmp/nginx_configmap.yaml
