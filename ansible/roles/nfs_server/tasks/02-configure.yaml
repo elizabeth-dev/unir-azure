@@ -9,19 +9,10 @@
     group: nogroup
   become: yes
 
-- name: Create NFS WWW directory
-  ansible.builtin.file:
-    path: /srv/nfs/nginx
-    state: directory
-    mode: '0755'
-    owner: nobody
-    group: nogroup
-  become: yes
-
 - name: Copy example file
   ansible.builtin.copy:
     src: www_index.html
-    dest: /srv/nfs/nginx/index.html
+    dest: /srv/nfs/index.html
     owner: root
     group: root
     mode: '0644'

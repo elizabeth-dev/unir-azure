@@ -29,14 +29,14 @@ echo "Nginx deployed successfully..."
 
 # Wait for Nginx to be up
 echo "Waiting for Nginx to be up..."
-while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' -H 'Host: foo.bar' http://10.0.1.10:30372/nginx/)" != "200" ]];
+while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' -H 'Host: foo.bar' http://10.0.1.10:30372/)" != "200" ]];
 do sleep 5;
 done
 
 echo ""
-curl -H 'Host: foo.bar' http://10.0.1.10:30372/nginx/
+curl -H 'Host: foo.bar' http://10.0.1.10:30372/
 echo ""
 
 
 echo "Nginx is up. Check it up yourself with the following command:"
-echo "curl -H 'Host: foo.bar' http://10.0.1.10:30372/nginx/"
+echo "curl -H 'Host: foo.bar' http://10.0.1.10:30372/"
